@@ -11,6 +11,16 @@ class InventarioJugador:
         return [objeto.get("nombre") for objeto in self.objetos if objeto["energia"] <= max_energia]
    
 
+    def usarObjeto(self,nombre, elemento=None):
+        for objeto in self.objetos:
+            if objeto["nombre"] == nombre:
+                if objeto["usos"]>=1:
+                    objeto["usos"]-=1
+                if objeto["usos"]==0:
+                    self.objetos.remove(objeto)
+                return True
+            else:
+                return False
 
 
 

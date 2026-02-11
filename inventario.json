@@ -2,7 +2,7 @@
 "nombre": "Poción de energía",
 "categoria": "recuperacion",
 "contenedor": "frasco",
-"usos": 5,
+"usos": 1,
 "elemento": "electricidad",
 "energia": 12
 },
