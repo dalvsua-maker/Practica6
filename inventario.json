@@ -1,0 +1,38 @@
+[{
+"nombre": "Poción de energía",
+"categoria": "recuperacion",
+"contenedor": "frasco",
+"usos": 5,
+"elemento": "electricidad",
+"energia": 12
+},
+{
+"nombre": "Antídoto",
+"categoria": "cura",
+"contenedor": "unidad",
+"usos": 1,
+"elemento": null,
+"energia": 4
+},{
+"nombre": "Botiquin",
+"categoria": "cura",
+"contenedor": "Maletin",
+"usos": 3,
+"elemento": null,
+"energia": 50
+},{
+"nombre": "Extracto lirio azul",
+"categoria": "recuperacion",
+"contenedor": "frasco",
+"usos": 1,
+"elemento": "hielo",
+"energia": 100
+},{
+
+"nombre": "Fragmento de Meteorito",
+"categoria": "mejora",
+"contenedor": "bolsa",
+"usos": 5,
+"elemento": "fuego",
+"energia": 15
+}]
