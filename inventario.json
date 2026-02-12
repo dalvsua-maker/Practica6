@@ -2,7 +2,7 @@
 "nombre": "Poción de energía",
 "categoria": "recuperacion",
 "contenedor": "frasco",
-"usos": 1,
+"usos": 2,
 "elemento": "electricidad",
 "energia": 12
 },
@@ -35,4 +35,13 @@
 "usos": 5,
 "elemento": "fuego",
 "energia": 15
+},
+{
+
+"nombre": "Lava de Flabalaba",
+"categoria": "mejora",
+"contenedor": "piedra",
+"usos": 3,
+"elemento": "fuego",
+"energia": 30
 }]
