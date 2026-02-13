@@ -8,7 +8,9 @@ inv.consultarUsos(elemento="fuego")
 inv.consultarUsos(categoria="cura")
 inv.consultarUsos(nombre="Lava de flabalaba")
 inv.mostrar()
-print(inv.estrategiaSobrecarga())
+categoria, objetos = inv.estrategiaSobrecarga()
+print(f"Categoría ganadora: {categoria}")
+print(f"Objetos: {objetos}")
 
 
 

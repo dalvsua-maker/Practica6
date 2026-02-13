@@ -102,9 +102,8 @@ class InventarioJugador:
 
         # Buscamos la categoría con el total de energía más alto
         categoria_ganadora = max(energia_por_categoria, key=energia_por_categoria.get)
-        print(categoria_ganadora)
         # Devolvemos la lista de diccionarios de esa categoría
-        return objetos_por_categoria[categoria_ganadora]
+        return categoria_ganadora, objetos_por_categoria[categoria_ganadora]
 
 
 
