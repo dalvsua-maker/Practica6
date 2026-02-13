@@ -1,5 +1,5 @@
 import json
-
+import unicodedata
 
 class InventarioJugador:
     def __init__(self, ruta):
@@ -34,19 +34,32 @@ class InventarioJugador:
 
         print("=" * 80 + "\n")
 
+    @staticmethod
+    def normalizar(texto):
+        """Elimina acentos y convierte a minúsculas"""
+        if texto is None:
+            return None
+        texto_nfd = unicodedata.normalize('NFD', texto)
+        texto_sin_acentos = ''.join(c for c in texto_nfd if unicodedata.category(c) != 'Mn')
+        return texto_sin_acentos.casefold()
+    
     def usarObjeto(self, nombre, elemento=None):
+        nombre_buscar = self.normalizar(nombre)
+        
         for objeto in self.objetos:
-            if objeto["nombre"] == nombre and (
-                objeto["elemento"].casefold() == elemento.casefold()
-                or objeto["elemento"] == None
-            ):
-                if objeto["usos"] >= 1:
-                    objeto["usos"] -= 1
-                if objeto["usos"] == 0:
-                    self.objetos.remove(objeto)
-                return True
-            else:
-                return False
+            if self.normalizar(objeto["nombre"]) != nombre_buscar:
+                continue
+            
+            if elemento is not None:
+                obj_elem = objeto.get("elemento")
+                if obj_elem is None or self.normalizar(obj_elem) != self.normalizar(elemento):
+                    continue
+            
+            if objeto["usos"] >= 1:
+                objeto["usos"] -= 1
+            if objeto["usos"] == 0:
+                self.objetos.remove(objeto)
+            return True
 
     def consultarUsos(self, nombre=None, categoria=None, elemento=None):
         match = []
@@ -82,14 +95,14 @@ class InventarioJugador:
                 objetos_por_categoria[cat] = []
             #Sumamos la energia del objeto a su categoria y lo añadimos a su lista de categoria
             energia_por_categoria[cat] += energia_objeto
-            objetos_por_categoria[cat].append(objeto)
+            objetos_por_categoria[cat].append(objeto.get("nombre"))
         #Si no hay info se devuelve una lista vacia
         if not energia_por_categoria:
             return []
 
         # Buscamos la categoría con el total de energía más alto
         categoria_ganadora = max(energia_por_categoria, key=energia_por_categoria.get)
-
+        print(categoria_ganadora)
         # Devolvemos la lista de diccionarios de esa categoría
         return objetos_por_categoria[categoria_ganadora]
 
