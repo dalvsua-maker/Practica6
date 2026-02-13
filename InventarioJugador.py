@@ -53,9 +53,9 @@ class InventarioJugador:
         for objeto in self.objetos:
             #Para encapsular condiciones usamos if((condicion multiple1)and(condicion multiple2))
             if (
-                (nombre is None or nombre.casefold() == objeto["nombre"].casefold())
-                and (categoria is None or categoria.casefold() == objeto["categoria"].casefold())
-                and (elemento is None or elemento.casefold() == objeto["elemento"].casefold())
+                (nombre is None or (objeto.get("nombre") and nombre.casefold() == objeto["nombre"].casefold()))
+                and (categoria is None or (objeto.get("categoria") and categoria.casefold() == objeto["categoria"].casefold()))
+                and (elemento is None or (objeto.get("elemento") and elemento.casefold() == objeto["elemento"].casefold()))
             ):
                 match.append(objeto)
         if len(match) > 0:
@@ -63,3 +63,36 @@ class InventarioJugador:
                 print(f"{objeto['nombre']} usos: {objeto['usos']}")
         else:
             print("No hay coincidencias")
+    def estrategiaSobrecarga(self):
+        #usamos diccionarios (key-value) para almacenar las categorias con su energia total 
+        # y otro que almacene los objetos por categoria 
+        energia_por_categoria = {}
+        objetos_por_categoria = {}
+        #por cada objeto en inventario
+        for objeto in self.objetos:
+            #almacenamos la categoria del objeto actual
+            cat = objeto["categoria"] 
+            #calculamos cuanta energia total nos da con todos sus usos
+            energia_objeto = objeto["usos"] * objeto["energia"] 
+            #Si no existe la categoria del objeto la creamos en cada diccionario(una solo 
+            # almacena el total de energia por categoria y
+            #  otra almacena una lista de objetos por categoria)
+            if cat not in energia_por_categoria:
+                energia_por_categoria[cat] = 0
+                objetos_por_categoria[cat] = []
+            #Sumamos la energia del objeto a su categoria y lo añadimos a su lista de categoria
+            energia_por_categoria[cat] += energia_objeto
+            objetos_por_categoria[cat].append(objeto)
+        #Si no hay info se devuelve una lista vacia
+        if not energia_por_categoria:
+            return []
+
+        # Buscamos la categoría con el total de energía más alto
+        categoria_ganadora = max(energia_por_categoria, key=energia_por_categoria.get)
+
+        # Devolvemos la lista de diccionarios de esa categoría
+        return objetos_por_categoria[categoria_ganadora]
+
+
+
+                
