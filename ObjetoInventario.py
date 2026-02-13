@@ -15,6 +15,6 @@ class ObjetoInventario:
         self.contenedor=contenedor
         self.usos=usos
         self.elemento=elemento
-        energia=energia
+        self.energia=energia
 
     
