@@ -11,6 +11,7 @@ inv.mostrar()
 categoria, objetos = inv.estrategiaSobrecarga()
 print(f"Categoría ganadora: {categoria}")
 print(f"Objetos: {objetos}")
+#Esta rama utiliza objetos para manipular la informacion 
 
 
 
