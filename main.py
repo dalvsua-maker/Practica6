@@ -12,7 +12,7 @@ categoria, objetos = inv.estrategiaSobrecarga()
 print(f"Categoría ganadora: {categoria}")
 print(f"Objetos: {objetos}")
 
-
+#Para usar diccionarios hacer git checkout main
 
 
 
