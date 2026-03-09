@@ -1,14 +1,47 @@
 import json
 import unicodedata
+import os
+# Obtiene la carpeta donde está el script actual
 
 class InventarioJugador:
     def __init__(self, ruta):
+        """
+        Constructor de la clase InventarioJugador.
+
+        Abre el archivo json indicado por ruta y carga sus datos en
+        la lista self.objetos.
+
+        Parameters
+        ----------
+        ruta : str
+            ruta del archivo json a cargar
+
+        Returns
+        -------
+        None
+        """
+        directorio_actual = os.path.dirname(__file__)
+        ruta = os.path.join(directorio_actual, ruta)
         with open(ruta, "r", encoding="utf-8") as archivo:
 
             self.objetos = []
             self.objetos = json.load(archivo)
 
     def buscarPorEnergia(self, max_energia):
+        """
+        Busca en la lista de objetos self.objetos aquellos cuya energía sea
+        menor o igual a max_energia y devuelve una lista con sus nombres.
+
+        Parameters
+        ----------
+        max_energia : int
+            energía máxima a buscar
+
+        Returns
+        -------
+        list
+            lista con los nombres de los objetos que cumplen con la condición
+        """
         return [
             objeto.get("nombre")
             for objeto in self.objetos
@@ -16,6 +49,18 @@ class InventarioJugador:
         ]
 
     def mostrar(self):
+        """
+        Muestra por pantalla la lista de objetos con sus respectivos valores de
+        nombre, categoría, elemento, energía y usos.
+
+        Parameters
+        ----------
+
+        Returns
+        -------
+        None
+        """
+
         print("\n" + "=" * 80)
         # Imprime la cabecera usando f-strings con formato de alineación:
         # '<' alinea a la izquierda, '>' a la derecha, y el número define el ancho total de la columna.
@@ -34,6 +79,7 @@ class InventarioJugador:
 
         print("=" * 80 + "\n")
 
+                     
     @staticmethod
     def normalizar(texto):
         """Elimina acentos y convierte a minúsculas"""
@@ -44,6 +90,23 @@ class InventarioJugador:
         return texto_sin_acentos.casefold()
     
     def usarObjeto(self, nombre, elemento=None):
+        """
+        Usa un objeto en la lista de objetos self.objetos si su nombre coincide
+        con el parámetro nombre y si su elemento coincide con el parámetro
+        elemento (si no es None).
+
+        Parameters
+        ----------
+        nombre : str
+            nombre del objeto a buscar
+        elemento : str, optional
+            elemento del objeto a buscar, por defecto None
+
+        Returns
+        -------
+        bool
+            True si se encontró y se usó el objeto, False en caso contrario
+        """
         nombre_buscar = self.normalizar(nombre)
         
         for objeto in self.objetos:
@@ -62,6 +125,25 @@ class InventarioJugador:
             return True
 
     def consultarUsos(self, nombre=None, categoria=None, elemento=None):
+        """
+        Consulta la lista de objetos self.objetos y muestra por pantalla
+        aquellos objetos cuyo nombre coincide con el parámetro nombre
+        y cuya categoría coincide con el parámetro categoria y cuyo
+        elemento coincide con el parámetro elemento (si no es None).
+
+        Parameters
+        ----------
+        nombre : str, optional
+            nombre del objeto a buscar, por defecto None
+        categoria : str, optional
+            categoría del objeto a buscar, por defecto None
+        elemento : str, optional
+            elemento del objeto a buscar, por defecto None
+
+        Returns
+        -------
+        None
+        """
         match = []
         for objeto in self.objetos:
             #Para encapsular condiciones usamos if((condicion multiple1)and(condicion multiple2))
@@ -79,6 +161,17 @@ class InventarioJugador:
     def estrategiaSobrecarga(self):
         #usamos diccionarios (key-value) para almacenar las categorias con su energia total 
         # y otro que almacene los objetos por categoria 
+        """
+        Calcula la categoría con mayor energía total y devuelve una tupla con la categoría
+        y una lista de nombres de objetos que pertenecen a esa categoría.
+
+        Returns
+        -------
+        tuple
+            primera posición: str, categoría con mayor energía total
+            segunda posición: list, lista de nombres de objetos que pertenecen a esa categoría
+        """
+
         energia_por_categoria = {}
         objetos_por_categoria = {}
         #por cada objeto en inventario

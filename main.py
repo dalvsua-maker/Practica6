@@ -1,5 +1,5 @@
 from InventarioJugador import InventarioJugador
-inv = InventarioJugador("inventario.json")
+inv = InventarioJugador("./inventario.json")
 inv.mostrar()
 print(inv.buscarPorEnergia(max_energia=50))
 print(inv.usarObjeto(nombre="antidoto"))
