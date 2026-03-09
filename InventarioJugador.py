@@ -5,6 +5,16 @@ from ObjetoInventario import ObjetoInventario
 
 class InventarioJugador:
     def __init__(self, nombre_archivo):
+        """
+        Constructor de la clase InventarioJugador.
+        
+        Abre el archivo en la ruta especificada y carga los datos en un
+        objeto de tipo ObjetoInventario.
+        
+        Parameters:
+            nombre_archivo (str): Nombre del archivo a cargar.
+        """
+        
         dir_actual = os.path.dirname(os.path.abspath(__file__))
         ruta_completa = os.path.join(dir_actual, nombre_archivo)
         
@@ -25,6 +35,16 @@ class InventarioJugador:
         ]
 
     def buscarPorEnergia(self, max_energia):
+        """
+        Busca objetos en el inventario cuya energ a sea menor o igual a una
+        cantidad dada.
+
+        Parameters:
+            max_energia (int): Energ a m xima a buscar.
+
+        Returns:
+            list(str): Lista de nombres de objetos que cumplen con la condici n.
+        """
         return [
             objeto.nombre
             for objeto in self.objetos
@@ -32,6 +52,23 @@ class InventarioJugador:
         ]
 
     def mostrar(self):
+        """
+        Muestra en pantalla todos los objetos del inventario.
+        
+        La salida se mostrar  con una linea de igualdad en la parte
+        superior y una en la parte inferior, y mostrar  los objetos con
+        la siguiente estructura:
+        
+        NOMBRE         | CATEGOR I | ELEM.      | ENERGIA   | USOS     
+        ------------------------------------------------------------
+        <nombre>      | <categoria> | <elemento> | <energia> | <usos>
+        ------------------------------------------------------------
+        
+        Donde <nombre> es el nombre del objeto, <categoria> es la
+        categor a a la que pertenece, <elemento> es el elemento del objeto
+        (si es que tiene), <energia> es la energia del objeto y <usos> son
+        los usos del objeto.
+        """
         print("\n" + "=" * 80)
         print(
             f"{'NOMBRE':<25} | {'CATEGORÍA':<15} | {'ELEM.':<15} | {'ENERGÍA':>7} | {'USOS':>4}"
@@ -48,6 +85,16 @@ class InventarioJugador:
 
     @staticmethod
     def normalizar(texto):
+        """
+        Normaliza un texto quitandole los acentos y convirtiendo
+        a mayusculas.
+        
+        Parameters:
+            texto (str): Texto a normalizar.
+        
+        Returns:
+            str: Texto normalizado.
+        """
         if texto is None:
             return None
         texto_nfd = unicodedata.normalize('NFD', texto)
@@ -55,6 +102,21 @@ class InventarioJugador:
         return texto_sin_acentos.casefold()
 
     def usarObjeto(self, nombre, elemento=None):
+        """
+        Busca un objeto en la lista de objetos y lo utiliza si coincide
+        con el nombre y elemento dados. Si el objeto tiene usos
+        disponibles, se reduce en uno el numero de usos y si se
+        llega a 0, se elimina del inventario.
+        
+        Parameters:
+            nombre (str): Nombre del objeto a buscar.
+            elemento (str, optional): Elemento del objeto a buscar.
+                Defaults to None.
+        
+        Returns:
+            bool: True si se encuentra y se utiliza el objeto, False
+                en caso contrario.
+        """
         nombre_buscar = self.normalizar(nombre)
         
         for objeto in self.objetos:
@@ -74,6 +136,21 @@ class InventarioJugador:
         return False
 
     def consultarUsos(self, nombre=None, categoria=None, elemento=None):
+        """
+        Busca objetos en el inventario que coinciden con el nombre,
+        categoria y elemento dados. Si se encuentra al menos un objeto,
+        se imprimen por pantalla el nombre del objeto y su numero de
+        usos. Si no se encuentra ningun objeto, se imprime por pantalla
+        un mensaje indicando que no hay coincidencias.
+        
+        Parameters:
+            nombre (str, optional): Nombre del objeto a buscar.
+                Defaults to None.
+            categoria (str, optional): Categoria del objeto a buscar.
+                Defaults to None.
+            elemento (str, optional): Elemento del objeto a buscar.
+                Defaults to None.
+        """
         match = []
         for objeto in self.objetos:
             if (
@@ -89,6 +166,16 @@ class InventarioJugador:
         else:
             print("No hay coincidencias")
     def estrategiaSobrecarga(self):
+        """
+        Calcula la categoría que más energía sobrará y devuelve una tupla con
+        la categoría y una lista de objetos que la componen.
+        
+        Returns:
+            tuple: Una tupla con la categoría ganadora y una lista de objetos
+                que la componen. Si no hay objetos en el inventario, devuelve
+                (None, []).
+        """
+        
         energia_por_categoria = {}
         objetos_por_categoria = {}
         
