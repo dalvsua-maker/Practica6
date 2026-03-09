@@ -13,7 +13,7 @@ print(f"Categoría ganadora: {categoria}")
 print(f"Objetos: {objetos}")
 #Esta rama utiliza objetos para manipular la informacion 
 
-
+#Para usar diccionarios hacer git checkout main
 
 
 
