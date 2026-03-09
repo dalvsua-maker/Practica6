@@ -11,8 +11,8 @@ inv.mostrar()
 categoria, objetos = inv.estrategiaSobrecarga()
 print(f"Categoría ganadora: {categoria}")
 print(f"Objetos: {objetos}")
-#Esta rama utiliza diccioanrios para manipular los datos 
 
+#Para usar objetos hacer git checkout Objetos
 
 
 
