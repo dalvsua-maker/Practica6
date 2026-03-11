@@ -36,14 +36,14 @@ class InventarioJugador:
 
     def buscarPorEnergia(self, max_energia):
         """
-        Busca objetos en el inventario cuya energ a sea menor o igual a una
+        Busca objetos en el inventario cuya energia sea menor o igual a una
         cantidad dada.
 
         Parameters:
-            max_energia (int): Energ a m xima a buscar.
+            max_energia (int): Energ a maxima a buscar.
 
         Returns:
-            list(str): Lista de nombres de objetos que cumplen con la condici n.
+            list(str): Lista de nombres de objetos que cumplen con la condicion.
         """
         return [
             objeto.nombre
